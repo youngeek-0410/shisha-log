@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Issue
+    about: Issue template
+    url: https://github.com/youngeek-0410/shisha-log/issues/new?template=issue.md&projects=youngeek-0410/8&labels=enhancement
