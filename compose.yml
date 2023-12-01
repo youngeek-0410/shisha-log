@@ -1,0 +1,31 @@
+services:
+  backend:
+    build:
+      context: ./shisha-log-backend/
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+    volumes:
+      - ./shisha-log-backend:/app 
+    depends_on:
+      - db
+  frontend:
+    build:
+      context: ./shisha-log-frontend/
+      dockerfile: Dockerfile
+    volumes:
+      - ./shisha-log-frontend:/src
+    ports:
+      - 3000:3000 
+  db:
+    image: "mysql:8.2"
+    ports:
+      - "5432:5432"
+    environment:
+      - MYSQL_PASSWORD=password
+      - MYSQL_DB=db
+    volumes:
+      - db-store:/var/lib/mysql/data
+
+volumes:
+  db-store:
