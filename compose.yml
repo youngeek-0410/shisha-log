@@ -1,5 +1,5 @@
 services:
-  backend:
+  api-server:
     build:
       context: ./shisha-log-backend/
       dockerfile: Dockerfile
@@ -9,14 +9,18 @@ services:
       - ./shisha-log-backend:/app 
     depends_on:
       - db
-  frontend:
+    networks:
+      - shisha-log
+  app:
     build:
       context: ./shisha-log-frontend/
       dockerfile: Dockerfile
     volumes:
       - ./shisha-log-frontend:/src
     ports:
-      - 3000:3000 
+      - 3000:3000
+    networks:
+      - shisha-log
   db:
     image: "mysql:8.2"
     ports:
@@ -26,6 +30,12 @@ services:
       - MYSQL_DB=db
     volumes:
       - db-store:/var/lib/mysql/data
+    networks:
+      - shisha-log
 
 volumes:
   db-store:
+
+networks:
+  shisha-log:
+    driver: bridge
