@@ -1,0 +1,7 @@
+[submodule "shisha-log-backend"]
+    path = shisha-log-backend
+    url = git@github.com:youngeek-0410/shisha-log-backend.git
+    
+[submodule "shisha-log-frontend"]
+    path = shisha-log-frontend
+    url = git@github.com:youngeek-0410/shisha-log-frontend.git
