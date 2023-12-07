@@ -3,10 +3,10 @@ services:
     build:
       context: ./shisha-log-backend/
       dockerfile: Dockerfile
-    ports:
-      - 8080:8080
     volumes:
       - ./shisha-log-backend:/app 
+    ports:
+      - 8080:8080
     depends_on:
       - db
     networks:
