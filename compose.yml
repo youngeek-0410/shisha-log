@@ -22,14 +22,13 @@ services:
     networks:
       - shisha-log
   db:
-    image: "mysql:8.2"
+    build: 
+      context: ./shisha-log-backend/mysql/
+      dockerfile: Dockerfile
     ports:
-      - "5432:5432"
-    environment:
-      - MYSQL_PASSWORD=password
-      - MYSQL_DB=db
+      - "3306:3306"
     volumes:
-      - db-store:/var/lib/mysql/data
+      - db-store:/var/lib/mysql
     networks:
       - shisha-log
 
