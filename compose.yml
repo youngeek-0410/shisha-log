@@ -1,0 +1,40 @@
+services:
+  api-server:
+    build:
+      context: ./shisha-log-backend/
+      dockerfile: Dockerfile
+    volumes:
+      - ./shisha-log-backend:/app 
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
+    networks:
+      - shisha-log
+  app:
+    build:
+      context: ./shisha-log-frontend/
+      dockerfile: Dockerfile
+    volumes:
+      - ./shisha-log-frontend:/src
+    ports:
+      - 3000:3000
+    networks:
+      - shisha-log
+  db:
+    build: 
+      context: ./shisha-log-backend/mysql/
+      dockerfile: Dockerfile
+    ports:
+      - "3306:3306"
+    volumes:
+      - db-store:/var/lib/mysql
+    networks:
+      - shisha-log
+
+volumes:
+  db-store:
+
+networks:
+  shisha-log:
+    driver: bridge
