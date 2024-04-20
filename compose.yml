@@ -10,7 +10,7 @@ services:
     depends_on:
       - db
     networks:
-      - shisha-log
+      - shisha
   app:
     build:
       context: ./shisha-log-frontend/
@@ -20,21 +20,25 @@ services:
     ports:
       - 3000:3000
     networks:
-      - shisha-log
+      - shisha
   db:
-    build: 
-      context: ./shisha-log-backend/mysql/
-      dockerfile: Dockerfile
+    image: postgres:16.2
     ports:
-      - "3306:3306"
+      - "5432:5432"
     volumes:
-      - db-store:/var/lib/mysql
+      - db-store:/var/lib/postgresql/data
+      - ./shisha-log-backend/db/init:/docker-entrypoint-initdb.d
     networks:
-      - shisha-log
+      - shisha
+    environment:
+      POSTGRES_USER: 'postgres'
+      POSTGRES_PASSWORD: 'postgres'
+      POSTGRES_DB: 'shisha'
+      TZ: Asia/Tokyo
 
 volumes:
   db-store:
 
 networks:
-  shisha-log:
+  shisha:
     driver: bridge
